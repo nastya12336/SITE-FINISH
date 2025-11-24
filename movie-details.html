@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детали фильма - CineNight</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .movie-detail {
+            max-width: 1000px;
+            margin: 100px auto 2rem;
+            padding: 0 2rem;
+        }
+
+        .movie-header {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            align-items: flex-start;
+        }
+
+        .movie-poster-large {
+            width: 350px;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .movie-info-large {
+            flex: 1;
+        }
+
+        .movie-title-large {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .movie-meta-large {
+            color: #ccc;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .movie-rating-large {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+        }
+
+        .rating-stars-large {
+            color: #ffd700;
+            font-size: 1.5rem;
+        }
+
+        .rating-value-large {
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .movie-description-large {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: #ccc;
+        }
+
+        .reviews-section {
+            margin-top: 3rem;
+        }
+
+        .review-card {
+            background: #1a1a1a;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #e50914;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .review-user {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .review-rating {
+            color: #ffd700;
+        }
+
+        .back-button {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            transition: background 0.3s;
+        }
+
+        .back-button:hover {
+            background: #e50914;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <h1>CineNight</h1>
+                <span>Детали фильма</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Главная</a>
+            </div>
+        </nav>
+        <!-- В head всех HTML файлов добавьте предзагрузку критических ресурсов -->
+<link rel="preconnect" href="https://m.media-amazon.com">
+<link rel="dns-prefetch" href="https://m.media-amazon.com">
+    </header>
+
+    <main class="main">
+        <section class="movie-detail">
+            <button class="back-button" onclick="window.history.back()">← Назад</button>
+            
+            <div id="movieDetailContent">
+                <!-- Детали фильма будут здесь -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 CineNight. Все права защищены.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const movieData = JSON.parse(localStorage.getItem('selectedMovie'));
+            const container = document.getElementById('movieDetailContent');
+
+            if (movieData) {
+                container.innerHTML = `
+                    <div class="movie-header">
+                        <img src="${movieData.poster}" alt="${movieData.title}" class="movie-poster-large">
+                        <div class="movie-info-large">
+                            <h1 class="movie-title-large">${movieData.title} (${movieData.year})</h1>
+                            <div class="movie-meta-large">
+                                <div><strong>Режиссер:</strong> ${movieData.director}</div>
+                                <div><strong>Длительность:</strong> ${movieData.duration}</div>
+                                <div><strong>Жанр:</strong> ${getGenreByMood(movieData.mood)}</div>
+                            </div>
+                            <div class="movie-rating-large">
+                                <span class="rating-stars-large">${'★'.repeat(Math.floor(movieData.rating/2))}</span>
+                                <span class="rating-value-large">${movieData.rating}/10</span>
+                            </div>
+                            <p class="movie-description-large">${movieData.description}</p>
+                        </div>
+                    </div>
+
+                    ${movieData.reviews ? `
+                    <div class="reviews-section">
+                        <h2>Отзывы зрителей</h2>
+                        ${movieData.reviews.map(review => `
+                            <div class="review-card">
+                                <div class="review-header">
+                                    <span class="review-user">${review.user}</span>
+                                    <span class="review-rating">${'★'.repeat(review.rating)}</span>
+                                </div>
+                                <p>${review.comment}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                    ` : ''}
+                `;
+            }
+        });
+
+        function getGenreByMood(mood) {
+            const genreMap = {
+                comedy: "Комедия",
+                drama: "Драма",
+                thriller: "Триллер",
+                action: "Боевик",
+                fantasy: "Фэнтези",
+                'sci-fi': "Фантастика",
+                romance: "Мелодрама",
+                horror: "Ужасы",
+                adventure: "Приключения",
+                mystery: "Детектив",
+                animation: "Анимация"
+            };
+            return genreMap[mood] || "Неизвестно";
+        }
+    </script>
+</body>
+</html>

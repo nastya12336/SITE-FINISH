@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фильмы по жанру - CineNight</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <h1>CineNight</h1>
+                <span>Фильмы по жанру</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Главная</a>
+            </div>
+        </nav>
+        <!-- В head всех HTML файлов добавьте предзагрузку критических ресурсов -->
+<link rel="preconnect" href="https://m.media-amazon.com">
+<link rel="dns-prefetch" href="https://m.media-amazon.com">
+    </header>
+
+    <main class="main">
+        <section id="genreMovies" class="movies-section">
+            <h2 id="genreTitle">Фильмы жанра</h2>
+            <div id="genreMoviesGrid" class="movies-grid">
+                <!-- Фильмы жанра будут здесь -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 CineNight.Видео взято с открытых источников.</p>
+         <p>&copy;2025 Все права принадлежат правообладателям.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const genre = localStorage.getItem('selectedGenre');
+            const genreNames = {
+                comedy: "Комедии",
+                drama: "Драмы", 
+                thriller: "Триллеры",
+                action: "Боевики",
+                fantasy: "Фэнтези",
+                'sci-fi': "Фантастика",
+                romance: "Мелодрамы",
+                horror: "Ужасы",
+                adventure: "Приключения",
+                mystery: "Детективы",
+                animation: "Анимация",
+                anime: "Аниме",
+            };
+
+            document.getElementById('genreTitle').textContent = genreNames[genre];
+            
+            if (moviesDatabase[genre]) {
+                displayMovies(moviesDatabase[genre], 'genreMoviesGrid');
+            }
+        });
+    </script>
+</body>
+</html>
