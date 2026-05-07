@@ -121,7 +121,7 @@ const moviesDatabase = {
             duration: "107 мин",
             director: "Владимир Меньшов",
             description: "Советская классика с Александром Михайловым и Людмилой Гурченко",
-            poster: "img/любовь и голуби.jpg",
+            poster: "img/любовь.jpg",
             mood: "comedy",
             videoUrl: "https://rutube.ru/video/68781d890618ea50933ec020fd5060bf/",
             reviews: [
