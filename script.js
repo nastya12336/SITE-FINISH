@@ -1951,7 +1951,7 @@ const moviesDatabase = {
             duration: "82 мин",
             director: "Мамору Осии",
             description: "В киберпанк-будущем киборг-агент Мотоко Кусанаги расследует загадочные преступления хакера по имени Кукловод.",
-            poster: "img/призрак.jpg",
+            poster: "img/призрак.webp",
             mood: "anime",
             videoUrl: "https://rutube.ru/video/f8d2f9323eac9d95bbaad7459e65de0f/",
             reviews: [
